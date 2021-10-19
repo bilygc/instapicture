@@ -11,6 +11,10 @@ export default makeStyles((theme) => ({
   },
   heading: {
     color: 'black',
+    fontSize:'35px',
+    [theme.breakpoints.up('md')]:{
+      fontSize:'50px',
+    },
   },
   image: {
     width:'100px',
