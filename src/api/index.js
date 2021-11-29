@@ -1,10 +1,20 @@
 import axios from 'axios';
 
-const url = window.location.hostname === 'localhost' ? 'http://localhost:5000/posts' : 'https://instapic-true.herokuapp.com/posts';
+const url = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://instapic-true.herokuapp.com';
+const API = axios.create({baseURL:url})
 
-export const fetchPosts = () => axios.get(url)
+API.interceptors.request.use((req) =>{
+    if (localStorage.getItem('profile')){
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+    }
+    return req;
+})
 
-export const createPost = (newPost) => axios.post(url,newPost)
-export const updatePost = (id, post) => axios.patch(`${url}/${id}`, post)
-export const deletePost = (id) => axios.delete(`${url}/${id}`)
-export const likePost = (id) => axios.patch(`${url}/likePost/${id}`)
+export const fetchPosts = () => API.get('/posts')
+export const createPost = (newPost) => API.post('/posts',newPost)
+export const updatePost = (id, post) => API.patch(`/posts/${id}`, post)
+export const deletePost = (id) => API.delete(`/posts/${id}`)
+export const likePost = (id) => API.patch(`/posts/likePost/${id}`)
+
+export const signIn = (FormData) => API.post('/user/signin', FormData);
+export const signUp = (FormData) => API.post('/user/signup', FormData);
