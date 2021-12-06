@@ -5,3 +5,4 @@ export const DELETE = 'DELETE';
 export const LIKEPOST = 'LIKEPOST';
 export const AUTH = 'AUTH';
 export const LOGOUT = 'LOGOUT';
+export const LOGINERROR = 'LOGINERROR';

@@ -1,4 +1,4 @@
-import React, {useState } from 'react'
+import React, {useState, useEffect } from 'react'
 import { Container, Paper, Typography, Grid, Avatar, Button } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Icon from './icon'
@@ -21,10 +21,14 @@ const Auth = () => {
 
     const handleSubmit = (e) =>{
         e.preventDefault()
-        if (isSignup) {
-            dispatch(signup(formData, navigate))
-        }else{
-            dispatch(signin(formData, navigate))
+        try {
+            if (isSignup) {
+                dispatch(signup(formData, navigate))
+            }else{
+                dispatch(signin(formData, navigate))
+            }            
+        } catch (error) {
+            console.log("catch error: ",error)
         }
     }
     const handleChange = (e) =>{
@@ -45,7 +49,7 @@ const Auth = () => {
         
         try {
             dispatch({type:'AUTH', data:{result, token}})
-            navigate('/')
+            navigate('/?sign=true&message=your are Logged In!!')
         } catch (error) {
             console.log(error)            
         }

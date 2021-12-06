@@ -25,7 +25,8 @@ const Navbar = () => {
 
     const logOut = () =>{
         dispatch({type:'LOGOUT'})
-        navigate('/')
+        navigate('/?logout=true&message=you are logged out')
+        navigate(0)//refresh the page
         setUser(null)
     }
     
